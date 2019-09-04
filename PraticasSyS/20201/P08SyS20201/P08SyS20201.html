@@ -1,0 +1,163 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pr&aacute;ctica 8:  Simulink</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-08-06"><meta name="DC.source" content="P08SyS20201.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 8:  Simulink</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Simulink</a></li><li><a href="#2">Entregables</a></li><li><a href="#3">Simulaci&oacute;n</a></li></ul></div><h2 id="1">Simulink</h2><p>Para un panorama general de saber que es SIMULINK revise el siguiente video</p><p> <iframe width="560" height="315" src="https://www.youtube.com/embed/ren6MuVCGDU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p><p>En particular nos concentraremos en simular soluci&oacute;n de ecuaciones diferenciales. Para activar Simulink podemos hacerlo por lo menos de dos maneras, con comando</p><p><img vspace="5" hspace="5" src="Simulinkcomando.png" alt=""> </p><p>o dando click en el icono ubicado en la pesta&ntilde;a de <i>HOME</i></p><p><img vspace="5" hspace="5" src="Simulinkiconono.png" alt=""> </p><p>Dependiendo de la versi&oacute;n que se utilice podr&iacute;a o no aparecer la siguiente ventana. En caso de que aprezca seleccionamos la opci&oacute;n de <i>Blank Model</i></p><p><img vspace="5" hspace="5" src="SimulinkInicio.png" alt=""> </p><p>de ser necesario seleccionamos el icono mostrado para que aparezca la <i>Simulink Library Browser</i></p><p><img vspace="5" hspace="5" src="LienzoInicio.png" alt=""> </p><p>Ahora se presentan algunos ejemplos utilizando simulink, implemente las simulaciones que se muestran en los videos y comparelas.</p><p><a href="https://youtu.be/297GCmVQy5E?t=1699">Primer orden</a> <img src="P08SyS20201_eq09703384188727751951.png" alt="$\dot{y} +3y=x$"></p><p><a href="https://youtu.be/ushPAobNrFg?t=2491">Primer orden</a> <img src="P08SyS20201_eq09313867957022792704.png" alt="$\dot{y} +3y=\dot{x}$"></p><p><a href="https://youtu.be/K5DVqVI1mdA?t=2385">Segundo Orden</a> <img src="P08SyS20201_eq10147169103731313538.png" alt="$\ddot{y}+3\dot{y}+2y=\dot{x}+3x$"></p><h2 id="2">Entregables</h2><p>Para las siguientes ecuaciones obtenga</p><p><img vspace="5" hspace="5" src="ecu1.png" alt=""> </p><div><ol><li>La soluci&oacute;n anal&iacute;tica mediante transformada de Laplace</li><li>La gr&aacute;fica de la soluci&oacute;n anal&iacute;tica, puede presentar diferentes intervalos en la grafica y acercamientos a la gr&aacute;fica seg&uacute;n considere necesario.</li><li>El diagrama de la realizaci&oacute;n elegida para SImulink, indicando, en caso de que no sea claro, el valor de cada par&aacute;metro en Simulink, por ejemplo, reportar las condiciones Iniciales de simulaci&oacute;n ya que no son visibles a simple vista desde el esquema de realizaci&oacute;n.</li><li>La grafica de la soluci&oacute;n en Simulink, puede presentar diferentes intervalos en la grafica y acercamientos a la gr&aacute;fica seg&uacute;n considere necesario.</li><li>La gr&aacute;fica, en la misma figura, de la Simulaci&oacute;n y la soluci&oacute;n anal&iacute;tica.</li><li>En caso de que la entrada sea una funci&oacute;n senoidal: * Encuentre el escalamiento y desfasamiento de la respuesta forzada a partir de la evaluaci&oacute;n de la funci&oacute;n de transferencia (soluci&oacute;n anal&iacute;tica). *	Encuentre el escalamiento y desfasamiento de la respuesta forzada a partir de las gr&aacute;ficas de Bode generadas en Matlab  (soluci&oacute;n num&eacute;rica). *	Verifique que concuerde la soluci&oacute;n anal&iacute;tica y la soluci&oacute;n num&eacute;rica</li><li>Conclusiones en caso de que considere necesario realizar comentarios al respecto.</li></ol></div><h2 id="3">Simulaci&oacute;n</h2><p>Un p&eacute;ndulo doble oscila en un plano vertical bajo la acci&oacute;n de la gravedad. Para desplazamientos peque&ntilde;os <img src="P08SyS20201_eq11066774799090172276.png" alt="$\theta_1(t)$"> y <img src="P08SyS20201_eq00509787607673738456.png" alt="$\theta_2(t)$">, es posible demostrar que las ecuaciones diferenciales del movimiento (para &aacute;ngulos peque&ntilde;os) son:</p><p><img src="P08SyS20201_eq17176800161030461054.png" alt="$$ (m_1+m_2)l_1^2\ddot{\theta_1}(t)+m_2l_1l_2\ddot{\theta_2}(t)+(m_1+m_2)l_1g\theta_1(t)=0$$"></p><p><img src="P08SyS20201_eq10485034359302715337.png" alt="$$m_2l_2^2\ddot{\theta}_2+m_2l_1l_2\ddot{\theta_1}+m_2l_2g\theta_2(t)=0$$"></p><p>Resuelva el sistema con simulink y de forma simbolica con MATLAB con: <img src="P08SyS20201_eq00786909496420729905.png" alt="$m_1=0.1$">, <img src="P08SyS20201_eq15602869864492907101.png" alt="$m_2=0.1$">, <img src="P08SyS20201_eq15147460706885708536.png" alt="$l_1=l_2=1$">, <img src="P08SyS20201_eq02641250903781312135.png" alt="$\theta_1(0)=-1$">, <img src="P08SyS20201_eq09574318526791701494.png" alt="$\theta_2(0)=1$">, <img src="P08SyS20201_eq12830856720803665175.png" alt="$\dot{\theta_1}(0)=0$"> <img src="P08SyS20201_eq04913149351752566599.png" alt="$\dot{\theta_2}(0)=0$">.</p><p><img vspace="5" hspace="5" src="pendulo.png" alt=""> </p><p>Puedes consultar el siguiente documento para la soluci&oacute;n s&iacute;mbolica <a href="https://www.mathworks.com/help/symbolic/solve-differential-equations-using-laplace-transform.html">enlace</a></p><p>Reporte los esquemas de implementaci&oacute;n y la gr&aacute;fica de las soluciones.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Práctica 8:  Simulink
+%
+%% Simulink
+%
+% Para un panorama general de saber que es SIMULINK revise el siguiente
+% video
+%
+% <html> <iframe width="560" height="315" src="https://www.youtube.com/embed/ren6MuVCGDU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+% </html>
+%
+% En particular nos concentraremos en simular solución de ecuaciones
+% diferenciales. Para activar Simulink podemos hacerlo por lo menos de dos
+% maneras, con comando 
+%
+% <<Simulinkcomando.png>>
+% 
+% o dando click en el icono ubicado en la pestaña de _HOME_
+%
+% <<Simulinkiconono.png>>
+%
+% Dependiendo de la versión que se utilice podría o no aparecer la
+% siguiente ventana. En caso de que aprezca seleccionamos la opción de _Blank Model_ 
+%
+% <<SimulinkInicio.png>>
+%
+% de ser necesario seleccionamos el icono mostrado para que aparezca la _Simulink Library Browser_
+%
+% <<LienzoInicio.png>>
+%
+% Ahora se presentan algunos ejemplos utilizando simulink, implemente las simulaciones que se muestran en los videos
+% y comparelas. 
+%
+% <https://youtu.be/297GCmVQy5E?t=1699 Primer orden> $\dot{y} +3y=x$
+%
+% <https://youtu.be/ushPAobNrFg?t=2491 Primer orden> $\dot{y} +3y=\dot{x}$
+%
+% <https://youtu.be/K5DVqVI1mdA?t=2385 Segundo Orden> $\ddot{y}+3\dot{y}+2y=\dot{x}+3x$
+%
+%
+%
+%% Entregables
+%
+% Para las siguientes ecuaciones obtenga
+%
+% <<ecu1.png>>
+% 
+% # La solución analítica mediante transformada de Laplace  
+% # La gráfica de la solución analítica, puede presentar diferentes 
+% intervalos en la grafica y acercamientos a la gráfica según considere necesario.
+% # El diagrama de la realización elegida para SImulink, indicando, en caso
+% de que no sea claro, el valor de cada parámetro en Simulink, por ejemplo,
+% reportar las condiciones Iniciales de simulación ya que no son visibles 
+% a simple vista desde el esquema de realización.
+% # La grafica de la solución en Simulink, puede presentar diferentes 
+% intervalos en la grafica y acercamientos a la gráfica según considere necesario.
+% # La gráfica, en la misma figura, de la Simulación y la solución analítica.
+% # En caso de que la entrada sea una función senoidal: 
+% * Encuentre el escalamiento y desfasamiento de la respuesta forzada a 
+% partir de la evaluación de la función de transferencia (solución analítica).
+% *	Encuentre el escalamiento y desfasamiento de la respuesta forzada a partir 
+% de las gráficas de Bode generadas en Matlab  (solución numérica).
+% *	Verifique que concuerde la solución analítica y la solución numérica
+% # Conclusiones en caso de que considere necesario realizar comentarios al respecto.
+%% Simulación 
+% Un péndulo doble oscila en un plano vertical bajo la acción de la gravedad. 
+% Para desplazamientos pequeños $\theta_1(t)$ y $\theta_2(t)$, es posible 
+% demostrar que las ecuaciones diferenciales del movimiento (para ángulos
+% pequeños) son:
+
+%%
+% 
+% $$ (m_1+m_2)l_1^2\ddot{\theta_1}(t)+m_2l_1l_2\ddot{\theta_2}(t)+(m_1+m_2)l_1g\theta_1(t)=0$$
+% 
+% $$m_2l_2^2\ddot{\theta}_2+m_2l_1l_2\ddot{\theta_1}+m_2l_2g\theta_2(t)=0$$
+% 
+% Resuelva el sistema con simulink y de forma simbolica con MATLAB con: $m_1=0.1$, $m_2=0.1$, 
+% $l_1=l_2=1$, $\theta_1(0)=-1$, $\theta_2(0)=1$, $\dot{\theta_1}(0)=0$ 
+% $\dot{\theta_2}(0)=0$. 
+%
+% <<pendulo.png>>
+%
+% Puedes consultar el siguiente documento para la solución símbolica 
+% <https://www.mathworks.com/help/symbolic/solve-differential-equations-using-laplace-transform.html enlace>
+%
+% Reporte los esquemas de implementación y la gráfica de las soluciones. 
+% 
+
+
+
+
+##### SOURCE END #####
+--></body></html>

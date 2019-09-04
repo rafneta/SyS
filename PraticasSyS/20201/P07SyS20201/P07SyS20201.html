@@ -1,0 +1,1203 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pr&aacute;ctica 7:  Respuesta en frecuencia, Simulaci&oacute;n en MATLAB</title><meta name="generator" content="MATLAB 9.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-08-12"><meta name="DC.source" content="P07SyS20201.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 7:  Respuesta en frecuencia, Simulaci&oacute;n en MATLAB</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Respuesta en frecuencia</a></li><li><a href="#2">Ejemplo:</a></li><li><a href="#5">Gr&aacute;ficas de Bode</a></li><li><a href="#6">Gr&aacute;ficas de bode de constantes</a></li><li><a href="#7">Gr&aacute;ficas de bode de potencias</a></li><li><a href="#9">Gr&aacute;ficas de bode de factores lineales</a></li><li><a href="#11">Gr&aacute;ficas de bode de factores cuadraticos</a></li><li><a href="#13">Analisis de un sistema de segundo orden no amortiguado</a></li><li><a href="#14">Representaci&oacute;n de un sistema LTI en MATLAB</a></li><li><a href="#15">Respuesta al escal&oacute;n (condiciones iniciales cero)</a></li><li><a href="#16">Polos y ceros del sistema</a></li><li><a href="#17">Respuesta al impulso (condiciones iniciales cero)</a></li><li><a href="#18">Respuesta a entradas sinusoidales</a></li><li><a href="#19">Modelo de suspensi&oacute;n de un carro</a></li><li><a href="#20">Parametros del modelo</a></li><li><a href="#21">Funci&oacute;n de transferencia: Entrada- Salida</a></li><li><a href="#22">Ceros y polos del sistema</a></li><li><a href="#23">Respuesta del sistema al escal&oacute;n (conidiciones iniciales cero)</a></li><li><a href="#24">Respuesta al impulso (condiciones iniciales cero)</a></li><li><a href="#25">Respuesta a una entrada sinusoidal</a></li><li><a href="#26">Respuesta en frecuencia del sistema</a></li><li><a href="#27">Efectos de variar el amortiguamiento en la respuesta en frecuencia</a></li><li><a href="#28">Efecto de variar la masa en la respuesta en frecuencia</a></li><li><a href="#29">Entregables:</a></li></ul></div><h2 id="1">Respuesta en frecuencia</h2><p>Los filtros (sistemas LTI) son importantes en el &aacute;rea de procesamiento de se&ntilde;ales. Las caracteristicas del filtrado de un sistema diferencial LTI (ecuaci&oacute;n diferencial con coeficientes constantes y condiciones iniciales cero) est&aacute;n determinadas por lo siguiente:</p><p>Si la entrada a un sistema BIBO-estable es</p><p><img src="P07SyS20201_eq10301821981762913887.png" alt="$$x(t)= A\cos(\omega t + \theta)u(t)$$"></p><p>La salida en estado estacionario (coincide con la soluci&oacute;n particular o forzada), para un sistema asintoticamente estable, ser&aacute;</p><p><img src="P07SyS20201_eq05824820216459411337.png" alt="$$y_{ss}(t)=A|H(j\omega)|\cos(\omega t+ \theta + \angle H(j\omega))u(t)$$"></p><p>Podemos decir lo siguiente: Si una se&ntilde;al coseno (o seno) es la entrada de un sistema LTI BIBO-estable y asintoticamente estable, la respuesta en estado estacionario es un escalamiento vertical y una traslaci&oacute;n horizontal de la se&ntilde;al de entrada.</p><p>Si el escalamiento vertical dado es muy peque&ntilde;o <img src="P07SyS20201_eq17854136212578998407.png" alt="$|H(j\omega)|<< 1$"> la respuesta en estado estacionario tiene un efecto despreciable en la salida del sistema, entonces diremos que el sistema filtra a esta se&ntilde;al ("no la deja pasar para llegar a la salida del sistema", por lo que los sistemas LTI son filtros) pero esto no siempre es el caso, podr&iacute;a suceder que el escalamiento vertical no sea tan peque&ntilde;o, entonces la respuesta en estado estacionario no ser&iacute;a despreciable</p><p>El escalamiento vertical depende de dos cosas, de la estructura del sistema (cuantas derivadas hay en la entrada y la salida y los coeficientes de estas) y de los valores de <img src="P07SyS20201_eq08589834809570054062.png" alt="$\omega$">.  As&iacute; para un sistema fijo <img src="P07SyS20201_eq17354617462179732091.png" alt="$H$"> el escalamiento vertical y la traslaci&oacute;n horizontal (o desfasamiento) depende solo de los  valores de <img src="P07SyS20201_eq08589834809570054062.png" alt="$\omega$">, esto es, de la frecuencia de la entrada (ya sea una funci&oacute;n seno o coseno). Entonces ser&iacute;a conveniente tener registrados los escalamientos y traslaciones de la se&ntilde;al de salida en estado estacionario de alguna manera.</p><p>A la expresi&oacute;n <img src="P07SyS20201_eq03286531877702067301.png" alt="$H(j\omega)$"> se le conoce como <b>la respuesta en frecuencia del sistema</b> (es decir, la respuesta en frecuencia es la funci&oacute;n de transferencia en el formato de transformada de Fourier) y la manera de registrar la informaci&oacute;n que contiene es mediante las gr&aacute;ficas <img src="P07SyS20201_eq05350563964374045882.png" alt="$|H(j\omega)|$"> contra <img src="P07SyS20201_eq08589834809570054062.png" alt="$\omega$"> (gr&aacute;fica de magnitud) y <img src="P07SyS20201_eq11500627236519468617.png" alt="$\angle(H(j\omega))$">  contra <img src="P07SyS20201_eq08589834809570054062.png" alt="$\omega$"> (gr&aacute;fica de fase) (con <img src="P07SyS20201_eq08589834809570054062.png" alt="$\omega$"> de 0 a <img src="P07SyS20201_eq16739024125614530807.png" alt="$\infty$">) y precisamente estas gr&aacute;ficas nos ayudan a interpretar el sistema como filtro, est&aacute;s gr&aacute;ficas son las que se estudian cuando se habla de la respuesta en frecuencia mas que la expresi&oacute;n an&aacute;litica <img src="P07SyS20201_eq03286531877702067301.png" alt="$H(j\omega)$"> en si.</p><h2 id="2">Ejemplo:</h2><p>Encuentra la respuesta en frecuencia de</p><p><img src="P07SyS20201_eq13079118590907421009.png" alt="$$\ddot{y}+3\dot{y}+2y=\dot{x}+5x$$"></p><p>&iquest;Cu&aacute;l es la respuesta en estado estacionario cuando la entrada es <img src="P07SyS20201_eq07498964601539213209.png" alt="$x(t)=20sen(3t+2)$">?</p><p>Se suele utilizar a la letra <img src="P07SyS20201_eq17157792396909321071.png" alt="$s$"> para escribir a la funci&oacute;n de transferencia, aunque en este estudio nos conviene ver a la funci&oacute;n de transferecia en su notaci&oacute;n de transformada de Fourier, as&iacute; sustituimos a <img src="P07SyS20201_eq12362541531082859251.png" alt="$s=j\omega$"></p><p><img src="P07SyS20201_eq09828250958958545764.png" alt="$$H(s)=\frac{P(s)}{Q(s)}=\frac{s+5}{s^2+3s+2}$$"></p><p><img src="P07SyS20201_eq02119358755894772182.png" alt="$$H(j\omega)=\frac{j\omega+5}{(j\omega)^2+3(j\omega)+2}=\frac{5+\omega j}{2-\omega^2+3\omega j}$$"></p><p>Aqu&iacute; <img src="P07SyS20201_eq15415948677251620528.png" alt="$\omega=3$">, entonces</p><p><img src="P07SyS20201_eq01943964342198425583.png" alt="$$H(3j)=\frac{j3+5}{(j3)^2+3(j3)+2}=\frac{5+3j}{-7+9j}$$"></p><p><img src="P07SyS20201_eq13299923747676175886.png" alt="$$|H(3j)|=\frac{5.831}{11.402}=0.51141$$"></p><p><img src="P07SyS20201_eq06347966511696374150.png" alt="$$\angle H(3j)=0.54042-2.2318=-1.6914$$"></p><p>Entonces la respuesta en estado estacionario es</p><p><img src="P07SyS20201_eq17791376955496250737.png" alt="$$y_{ss}(t)=20(0.51141)sen(3t+2-1.6914)u(t)=10.228sen(3t+0.3086)u(t)$$"></p><p>Ahora podemos resolver este sistema para condiciones iniciales cero y la entrada establecida, observemos que la soluci&oacute;n es la respuesta total y en principio la soluci&oacute;n  no permite mostrar la respuesta en estado estacionario encontrada, pero mediante simplificaci&oacute;n se puede ver que coicide con la soluci&oacute;n del ejemplo anterior. Este sistema es asintoticamente estable y por lo tanto BIBO estable, entonces la respuesta transitoria tiende a ser despreciable desp&uacute;es de un largo tiempo, entonces si gr&aacute;ficamos la respuesta en estado estacionario encontrada en el ejemplo anterior tenemos que</p><pre class="codeinput">syms <span class="string">t</span>
+rg=laplace2016am([2 3 1],[5 1],[0 0],20*sin(3*t+2)*heaviside(t),10);
+tt=0:0.01:10;
+plot(rg,tt,10.228*sin(3*tt+0.3086),<span class="string">'k'</span>,<span class="string">'DisplayName'</span>,<span class="string">'Estado estacionario'</span>)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
+ 
+                     2
+2 Y(s) + 3 s Y(s) + s  Y(s)
+
+=
+5 X(s) + s X(s)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                     2
+2 Y(s) + 3 s Y(s) + s  Y(s)
+
+=
+300 cos(2)     / 60 cos(2)   20 s sin(2) \   100 s sin(2)
+---------- + s | --------- + ----------- | + ------------
+   2           |    2            2       |       2
+  s  + 9       \   s  + 9       s  + 9   /      s  + 9
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+                                              2
+300 cos(2) + 60 s cos(2) + 100 s sin(2) + 20 s  sin(2)
+------------------------------------------------------
+              4      3       2
+             s  + 3 s  + 11 s  + 27 s + 18
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+                       180 cos(2)   120 sin(2)
+                       ---------- - ----------
+24 cos(2) - 8 sin(2)       13           13
+-------------------- - -----------------------
+        s + 1                   s + 2
+
+     48 cos(2)   396 sin(2)     / 132 cos(2)   16 sin(2) \
+     --------- - ---------- + s | ---------- + --------- |
+         13          13         \     13           13    /
+   - -----------------------------------------------------
+                              2
+                             s  + 9
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+sin(3 t) sin(2) 132   sin(3 t) cos(2) 16   cos(3 t) sin(2) 16
+------------------- - ------------------ - ------------------
+         13                   13                   13
+
+                                                / 180 cos(2)   120 sin(2) \
+   + exp(-t) (24 cos(2) - 8 sin(2)) - exp(-2 t) | ---------- - ---------- |
+                                                \     13           13     /
+
+     cos(3 t) cos(2) 132
+   - -------------------
+              13
+
+</pre><img vspace="5" hspace="5" src="P07SyS20201_01.png" alt=""> <p>La funci&oacute;n <tt>laplace2016am</tt> es una modificaci&oacute;n de un programa que ya hemos utilizado donde nos regresa una ubicaci&oacute;n para gr&aacute;ficar en donde corresponde a la respuesta en estado estacionario, no hay mayor importancia en esto solo es para un despliegue m&aacute;s amigable, puede consultar el c&oacute;digo en el siguiente <a href="https://www.dropbox.com/s/4g2ye89p8hkhjpt/laplace2016am.m?dl=0">enlace</a> .</p><p>A continuaci&oacute;n calculamos la gr&aacute;fica de Magnitud y de fase para el sistema antes mencionado, mediante la defici&oacute;n directa y mediante la herramienta de Matlab con la instrucci&oacute;n <tt>bode</tt>. Adem&aacute;s observamos que estas gr&aacute;fica tienen la informaci&oacute;n de la magnitud y angulo para diferentes valores de <img src="P07SyS20201_eq08589834809570054062.png" alt="$\omega$"> en particu&ntilde;ar cuando <img src="P07SyS20201_eq15415948677251620528.png" alt="$\omega=3$">, hay que tener cuidado, la gr&aacute;fica de fase se reporta en grados.</p><pre class="codeinput">w = [0:0.1:100];
+absH =@(w) (25+w.^2).^0.5./((2-w.^2).^2+9*w.^2).^.5;
+angH = @(w) atan2d(w,5)-atan2d(3*w,(2-w.^2));
+figure
+subplot(1,2,1)
+
+plot(w,absH(w))
+hold <span class="string">on</span>
+p2=plot(3,absH(3),<span class="string">'ro'</span>);
+legend(p2,<span class="string">'Escalamiento para w=3'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'|H(j\omega)|'</span>)
+xlabel(<span class="string">'\omega'</span>)
+
+subplot(1,2,2)
+plot(w,angH(w))
+hold <span class="string">on</span>
+p3=plot(3,angH(3),<span class="string">'ro'</span>);
+legend(p3,<span class="string">'traslaci&oacute;n (en grados) para w=3'</span>)
+grid <span class="string">on</span>
+title(<span class="string">'\angle H(j\omega)'</span>)
+xlabel(<span class="string">'\omega'</span>)
+
+sistema = tf([1 5],[1 3 2])
+
+[m,a,wb] = bode(sistema);
+mm = squeeze(m);
+aa = squeeze(a);
+
+
+figure
+subplot(1,2,1)
+plot(wb,mm)
+grid <span class="string">on</span>
+title(<span class="string">'|H(j\omega)|'</span>)
+xlabel(<span class="string">'\omega'</span>)
+
+subplot(1,2,2)
+plot(wb,aa)
+grid <span class="string">on</span>
+title(<span class="string">'\angle H(j\omega)'</span>)
+xlabel(<span class="string">'\omega'</span>)
+</pre><pre class="codeoutput">
+sistema =
+ 
+      s + 5
+  -------------
+  s^2 + 3 s + 2
+ 
+Continuous-time transfer function.
+
+</pre><img vspace="5" hspace="5" src="P07SyS20201_02.png" alt=""> <img vspace="5" hspace="5" src="P07SyS20201_03.png" alt=""> <h2 id="5">Gr&aacute;ficas de Bode</h2><p>Las gr&aacute;ficas de Bode son escalas de las graficas de magnitud y fase, estas escalas se remontan a la decada de 1930-1940, nos permiten elaborar las gr&aacute;ficas de una manera "amigable" y tienen una mejor visualizaci&oacute;n que las escalas naturales, aunque en un principio la interpretaci&oacute;n de la magnitud y el desplazamiento (fase) pueden parecer un poco extra&ntilde;as, son las mismas que hemos comentado anteriormente.</p><p><b>La gr&aacute;fica de magnitud de bode</b> es gr&aacute;ficar <img src="P07SyS20201_eq16088251650401086086.png" alt="$20 log_{10}(|H(j\omega)|)$">, contra <img src="P07SyS20201_eq01103843110307182660.png" alt="$log_{10}(\omega)$">.</p><p><b>La gr&aacute;fica de fase de bode</b> es gr&aacute;ficar <img src="P07SyS20201_eq06234339949805530657.png" alt="$\angle(|H(j\omega)|)$">, contra <img src="P07SyS20201_eq01103843110307182660.png" alt="$log_{10}(\omega)$">.</p><p><b>Tenemos la siguiente definici&oacute;n</b>, si a un n&uacute;mero positivo <img src="P07SyS20201_eq05508344529756732484.png" alt="$a$"> le realizamos la operacion de la forma <img src="P07SyS20201_eq09357799442181133718.png" alt="$20log_{10}(a)$"> diremos que el resultado es el valor en decibeles del n&uacute;mero a, es decir, la gr&aacute;fica de Bode de magnitud se mide en <b>decibeles</b>.</p><p><b>Ejercicio</b> Convertir</p><div><ul><li><img src="P07SyS20201_eq09333622940994619698.png" alt="$|H(j\omega_0)|=1$"> a decibeles</li><li><img src="P07SyS20201_eq11419361339999059134.png" alt="$|H(j\omega_0)|=0.01$"> a decibeles</li><li><img src="P07SyS20201_eq18025942379326882303.png" alt="$|H(j\omega_0)|=1/\sqrt{2}$"> a decibeles</li><li><img src="P07SyS20201_eq07094794556010101674.png" alt="$-3db$"> a magnitud</li><li><img src="P07SyS20201_eq05884667605963027247.png" alt="$-20db$"> a magnitud</li><li><img src="P07SyS20201_eq03760138641010417438.png" alt="$10db$"> a mag</li></ul></div><p><b>Las transformaciones sugeridas</b> en estas gr&aacute;ficas est&aacute;n justificadas por el comportamiento de la funci&oacute;n logaritmo</p><p><b>Una Decada</b> es una razon <img src="P07SyS20201_eq08070320394055408108.png" alt="$\omega_2/\omega_1=10$">, equivale a una unidad en el eje <img src="P07SyS20201_eq10351665095590324999.png" alt="$u=log(\omega)$"></p><p><img src="P07SyS20201_eq14296418927217443150.png" alt="$$u_2-u_1=log(\omega_2)-log(\omega_!)=\log(\omega_2/\omega_1)=log(10)=1$$"></p><p><b>Una Octava</b> es una razon <img src="P07SyS20201_eq13516366266017941473.png" alt="$\omega_2/\omega_1=2$">, equivale a <img src="P07SyS20201_eq05340148506335032470.png" alt="$0.301$"> en el eje <img src="P07SyS20201_eq10351665095590324999.png" alt="$u=log(\omega)$"></p><p><img src="P07SyS20201_eq09820966068481009105.png" alt="$$u_2-u_1=log(\omega_2)-log(\omega_!)=\log(\omega_2/\omega_1)=log(2)=0.301$$"></p><p>Pensemos en la siguiente funci&oacute;n de transferencia</p><p><img src="P07SyS20201_eq01946719981347217119.png" alt="$$H(s)=\frac { K(s+{ a }_{ 1 })(s+{ a }_{ 2 }) }{ s(s+b_{ 1 })({ s }^{ 2 }+{ b }_{ 2 }s+{ b }_{ 3 }) } $$"></p><p>Factorizamos las constantes necesarias de tal manera que el termino independiente de cada componente de la factorizaci&oacute;n sea uno. Esto servir&aacute; para el an&aacute;lisis posterior</p><p><img src="P07SyS20201_eq04188429822957726002.png" alt="$$H(s)=\frac { K{ a }_{ 1 }{ a }_{ 2 } }{ { b }_{ 1 }{ b }_{ 3 } } \frac { \left( \frac { s }{ { a }_{ 1 } } +1 \right) \left( \frac { s }{ { a }_{ 2 } } +1 \right)  }{ s\left( \frac { s }{ { b }_{ 1 } } +1 \right)\left( \frac { s^{ 2 } }{ { b }_{ 3 } } +\frac { { b }_{ 2 } }{ { b }_{ 3 } } s+1 \right)  }&#xA;$$"></p><p>Sustituimos <img src="P07SyS20201_eq12362541531082859251.png" alt="$s=j\omega$"> para encontrar la funci&oacute;n del escalamiento y traslaci&oacute;n</p><p><img src="P07SyS20201_eq11591740307644002137.png" alt="$$&#xA;H(j\omega )=\frac { K{ a }_{ 1 }{ a }_{ 2 } }{ { b }_{ 1 }{ b }_{ 3 } } \frac { \left( 1+\frac { j\omega  }{ { a }_{ 1 } }  \right) \left( 1+\frac { j\omega  }{ { a }_{ 2 } }  \right)  }{ j\omega \left( 1+\frac { j\omega  }{ { b }_{ 1 } }  \right) \left[ 1+j\frac { { b }_{ 2 }\omega  }{ { b }_{ 3 } } +\frac { { (j\omega ) }^{ 2 } }{ { b }_{ 3 } }  \right]  }&#xA;$$"></p><p>As&iacute; la magnitud del escalamiento queda como</p><p><img src="P07SyS20201_eq14528093951673860315.png" alt="$$&#xA;\left| H(j\omega ) \right| =\frac { K{ a }_{ 1 }{ a }_{ 2 } }{ { b }_{ 1 }{ b }_{ 3 } } \frac { \left| 1+\frac { j\omega  }{ { a }_{ 1 } }  \right| \left| 1+\frac { j\omega  }{ { a }_{ 2 } }  \right|  }{ \left| j\omega  \right| \left| 1+\frac { j\omega  }{ { b }_{ 1 } }  \right| \left| 1+j\frac { { b }_{ 2 }\omega  }{ { b }_{ 3 } } +\frac { { (j\omega ) }^{ 2 } }{ { b }_{ 3 } }  \right|  }&#xA;$$"></p><p>Y la traslaci&oacute;n</p><p><img src="P07SyS20201_eq02908802111943748451.png" alt="$$&#xA;\angle H(j\omega )=\angle\left(\frac { K{ a }_{ 1 }{ a }_{ 2 } }{ { b }_{ 1 }{ b }_{ 3 } }\right)+\angle \left( 1+\frac { j\omega  }{ { a }_{ 1 } }  \right) +\angle \left( 1+\frac { j\omega  }{ { a }_{ 2 } }  \right) -\angle j\omega -\angle \left( 1+\frac { j\omega  }{ { b }_{ 1 } }  \right) -\angle \left[ 1+j\frac { { b }_{ 2 }\omega  }{ { b }_{ 3 } } +\frac { { (j\omega ) }^{ 2 } }{ { b }_{ 3 } }  \right]&#xA;$$"></p><p>El valor en decibeles de la magnitud queda como</p><p><img src="P07SyS20201_eq10091464106586814346.png" alt="$$ 20log\left| H(j\omega ) \right| =20log\left|\frac { K{ a }_{ 1 }{ a }_{ 2 } }{ { b }_{ 1 }{ b }_{ 3 } } \right|+20log\left| 1+\frac { j\omega  }{ { a }_{ 1 } }  \right| +20log\left| 1+\frac { j\omega  }{ { a }_{ 2 } }  \right| -20log\left| j\omega  \right| -20log\left| 1+\frac { j\omega  }{ { b }_{ 1 } }  \right|  \\&#xA;-20log\left| 1+j\frac { { b }_{ 2 }\omega  }{ { b }_{ 3 } } +\frac { {&#xA;(j\omega ) }^{ 2 } }{ { b }_{ 3 } } \right| $$"></p><h2 id="6">Gr&aacute;ficas de bode de constantes</h2><p>Si la funci&oacute;n de transferencia es una constante, la grafica de la magnitud son lineas horizontales y la fase es de <img src="P07SyS20201_eq00202142981986870057.png" alt="$0$"> o <img src="P07SyS20201_eq17224572890734814492.png" alt="$180$"> grados dependiendo del signo Pensemos en la siguiente funci&oacute;n  de transferencia:</p><p><img src="P07SyS20201_eq05806392582715673977.png" alt="$$H(j\omega)=a\;\; a\in R$$"></p><p><img src="P07SyS20201_eq07595746186790454736.png" alt="$$20log|H(j\omega)|=20log|a|$$"></p><p>Para a positiva <img src="P07SyS20201_eq10550906455228954231.png" alt="$ang(H(j\omega))=0$"> y para a negativa <img src="P07SyS20201_eq12928686696674712654.png" alt="$ang(H(j\omega))=180$"></p><pre class="codeinput">figure
+bode(5,1)
+grid <span class="string">on</span>
+figure
+bode(-5,1)
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="P07SyS20201_04.png" alt=""> <img vspace="5" hspace="5" src="P07SyS20201_05.png" alt=""> <h2 id="7">Gr&aacute;ficas de bode de potencias</h2><p>Pensemos en la siguiente funci&oacute;n  de transferencia:</p><p><img src="P07SyS20201_eq03400426033207877590.png" alt="$$H(j\omega)=\frac{1}{jw}$$"></p><p>La magnitud en decibeles queda como:</p><p><img src="P07SyS20201_eq00019275420098392478.png" alt="$$20log|H(j\omega)|=-20log|\omega|=-20log(\omega)=-20u$$"></p><p>La traslaci&oacute;n queda como:</p><p><img src="P07SyS20201_eq11533429813827079762.png" alt="$$\angle H(j\omega )=-\angle \left( j\omega \right)=- 90$$"></p><pre class="codeinput">close <span class="string">figure</span> <span class="string">1</span> <span class="string">2</span> <span class="string">3</span> <span class="string">4</span> <span class="string">5</span>
+figure
+<span class="comment">%hold on</span>
+<span class="comment">% Iteraci&oacute;n sobre diferentes valores</span>
+d=[1];
+<span class="keyword">for</span> i = 1:4
+    d=[d 0];
+	bode(tf(1,d))
+	pause(0.5)
+	drawnow
+    hold <span class="string">on</span>
+<span class="keyword">end</span>
+grid <span class="string">on</span>
+legend(<span class="string">'1/(j\omega)^1'</span>,<span class="string">'1/(j\omega)^2'</span>,<span class="string">'1/(j\omega)^3'</span>,<span class="string">'1/(j\omega)^4'</span>,<span class="string">'Location'</span>,<span class="string">'SW'</span>)
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="P07SyS20201_06.png" alt=""> <p>Se puede deducir de manera semejante si el factor esta en el numerador claro que habra un peque&ntilde;o cambio de signo por las porpiedades de la funci&oacute;n logaritmo</p><pre class="codeinput">figure
+hold <span class="string">on</span>
+<span class="comment">% Iteraci&oacute;n sobre diferentes valores</span>
+n=[1];
+<span class="keyword">for</span> i = 1:4
+    n=[n 0];
+	bode(tf(n,1))
+	pause(0.5)
+	drawnow
+<span class="keyword">end</span>
+grid <span class="string">on</span>
+legend(<span class="string">'(j\omega)^1'</span>,<span class="string">'(j\omega)^2'</span>,<span class="string">'(j\omega)^3'</span>,<span class="string">'(j\omega)^4'</span>,<span class="string">'Location'</span>,<span class="string">'SW'</span>)
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="P07SyS20201_07.png" alt=""> <h2 id="9">Gr&aacute;ficas de bode de factores lineales</h2><p>Pensemos en la siguiente funci&oacute;n de transferencia</p><p><img src="P07SyS20201_eq00823951480614761909.png" alt="$$H(j\omega)=\frac{1}{\left(1+\frac{j\omega}{a}\right)}$$"></p><p>La magnitud en decibeles queda como:</p><p><img src="P07SyS20201_eq07789661923658061363.png" alt="$$20log|H(j\omega)|=-20log\left| 1+\frac { j\omega  }{ a } \right|$$"></p><p>Cuando <img src="P07SyS20201_eq14199787550441964666.png" alt="$\omega<<a$"> entonces</p><p><img src="P07SyS20201_eq13017800658564115980.png" alt="$$20log|H(j\omega)|=-20log\left| 1+\frac { j\omega  }{ a } \right|\approx -20log(1)=0$$"></p><p>Cuando <img src="P07SyS20201_eq00112265347517420439.png" alt="$\omega&gt;&gt;a$"> entonces</p><p><img src="P07SyS20201_eq04709684965959503979.png" alt="$$20log|H(j\omega)|=-20log\left| 1+\frac { j\omega  }{ a }  \right| \approx -20log\left( \frac { \omega  }{ a }  \right) =-20log\omega +20loga=-20u+20log(a)$$"></p><p>&iquest;Qu&eacute; pasa cuando <img src="P07SyS20201_eq05177830494923879950.png" alt="$\omega=a$">?</p><p>La traslaci&oacute;n queda como:</p><p><img src="P07SyS20201_eq04041986817752999721.png" alt="$$\angle H(j\omega )=-\angle \left( 1+\frac { j\omega  }{ a }  \right) =-{ tan }^{ -1 }\left( \frac { \omega  }{ a }  \right)$$"></p><p>Cuando <img src="P07SyS20201_eq14199787550441964666.png" alt="$\omega<<a$"> entonces</p><p><img src="P07SyS20201_eq17847761918322843795.png" alt="$$\angle H(j\omega )=-{ tan }^{ -1 }\left( \frac { \omega  }{ a }  \right) \approx 0 $$"></p><p>Cuando <img src="P07SyS20201_eq00112265347517420439.png" alt="$\omega&gt;&gt;a$"> entonces</p><p><img src="P07SyS20201_eq07841918573687537385.png" alt="$$\angle H(j\omega )=-{ tan }^{ -1 }\left( \frac { \omega  }{ a }  \right) \approx -90$$"></p><p>&iquest;Qu&eacute; pasa cuando <img src="P07SyS20201_eq05177830494923879950.png" alt="$\omega=a$">?</p><pre class="codeinput">figure
+hold <span class="string">on</span>
+<span class="comment">% Iteraci&oacute;n sobre diferentes valores</span>
+<span class="keyword">for</span> i = 1:5
+	bode(tf(1,[ 1/(10^i) 1]))
+	pause(0.5)
+	drawnow
+<span class="keyword">end</span>
+grid <span class="string">on</span>
+legend(<span class="string">'a = 10'</span>,<span class="string">'a = 100'</span>,<span class="string">'a = 1000'</span>,<span class="string">'a = 10000'</span>,<span class="string">'a = 100000'</span>,<span class="string">'Location'</span>,<span class="string">'SW'</span>)
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="P07SyS20201_08.png" alt=""> <p>Se puede deducir de manera semejante si el factor esta en el numerador claro que habra un peque&ntilde;o cambio de signo por las porpiedades de la funci&oacute;n logaritmo</p><pre class="codeinput">figure
+hold <span class="string">on</span>
+<span class="comment">% Iteraci&oacute;n sobre diferentes valores</span>
+<span class="keyword">for</span> i = 1:5
+    bode(tf([ 1/(10^i) 1],1))
+	pause(0.5)
+	drawnow
+<span class="keyword">end</span>
+grid <span class="string">on</span>
+legend(<span class="string">'a = 10'</span>,<span class="string">'a = 100'</span>,<span class="string">'a = 1000'</span>,<span class="string">'a = 10000'</span>,<span class="string">'a = 100000'</span>,<span class="string">'Location'</span>,<span class="string">'SW'</span>)
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="P07SyS20201_09.png" alt=""> <h2 id="11">Gr&aacute;ficas de bode de factores cuadraticos</h2><p>Pensemos en la siguiente funci&oacute;n de transferencia</p><p><img src="P07SyS20201_eq16376575229541557040.png" alt="$$H(j\omega)=\frac{1}{\left(1+2j\zeta \frac { \omega  }{ { \omega  }_{ n } } +{ \left( \frac { j\omega  }{ { \omega  }_{ n } }  \right)  }^{ 2 }\right)}$$"></p><p>La magnitud en decibeles queda como:</p><p><img src="P07SyS20201_eq12349827015473920598.png" alt="$$20log|H(j\omega)|=-20log\left| 1+2j\zeta \frac { \omega  }{ { \omega  }_{ n } } +{ \left( \frac { j\omega  }{ { \omega  }_{ n } }  \right)  }^{ 2 } \right|$$"></p><p>Cuando <img src="P07SyS20201_eq00252438760174612456.png" alt="$\omega<<\omega_n$"> entonces</p><p><img src="P07SyS20201_eq15768947747153082902.png" alt="$$20log|H(j\omega)|=-20log\left| 1 \right|\approx -20log(1)=0$$"></p><p>Cuando <img src="P07SyS20201_eq05579135307638402192.png" alt="$\omega&gt;&gt;\omega_n$"> entonces</p><p><img src="P07SyS20201_eq18105836652365881333.png" alt="$$20log|H(j\omega)|=-20log\left| \frac {- \omega^2  }{ \omega_n^2 }  \right| \approx -40log\left( \frac { \omega  }{ \omega_n }  \right) =-40log\omega +40log\omega_n=-40u+40log(\omega_n)$$"></p><p>&iquest;Qu&eacute; pasa cuando <img src="P07SyS20201_eq01568493163588611982.png" alt="$\omega=\omega_n$">?</p><p>La traslaci&oacute;n queda como:</p><p><img src="P07SyS20201_eq15833535688554297683.png" alt="$$\angle H(j\omega )=-\angle \left(1+2j\zeta \frac { \omega  }{ { \omega  }_{ n } } +{ \left( \frac { j\omega  }{ { \omega  }_{ n } }  \right)  }^{ 2 }  \right) =-{ tan }^{ -1 }\left( \frac { 2\zeta \left( \frac { \omega  }{ { \omega  }_{ n } }  \right)  }{ 1-{ \left( \frac { \omega  }{ { \omega  }_{ n } }  \right)  }^{ 2 } }\right)$$"></p><p>Cuando <img src="P07SyS20201_eq00252438760174612456.png" alt="$\omega<<\omega_n$"> entonces</p><p><img src="P07SyS20201_eq08813171916565221965.png" alt="$$\angle H(j\omega )=-{ tan }^{ -1 }\left( \frac { 0  }{ 1 }  \right) \approx 0 $$"></p><p>Cuando <img src="P07SyS20201_eq05579135307638402192.png" alt="$\omega&gt;&gt;\omega_n$"> entonces</p><p><img src="P07SyS20201_eq03371013153597678992.png" alt="$$\angle H(j\omega ) \approx -180$$"></p><p>&iquest;Qu&eacute; pasa cuando <img src="P07SyS20201_eq01568493163588611982.png" alt="$\omega=\omega_n$">?</p><pre class="codeinput">figure
+hold <span class="string">on</span>
+w_n=10;
+
+<span class="comment">% Iteraci&oacute;n sobre diferentes valores</span>
+<span class="keyword">for</span> zeta = 0.1:0.2:0.9
+	bode(tf(1,[ 1/(w_n^2) 2*zeta/w_n  1]))
+	pause(0.5)
+	drawnow
+<span class="keyword">end</span>
+grid <span class="string">on</span>
+legend(<span class="string">'\zeta = 0.1'</span>,<span class="string">'\zeta = 0.3'</span>,<span class="string">'\zeta = 0.5'</span>,<span class="string">'\zeta = 0.7'</span>,<span class="string">'\zeta = 0.9'</span>,<span class="string">'Location'</span>,<span class="string">'SW'</span>)
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="P07SyS20201_10.png" alt=""> <p>Se puede deducir de manera semejante si el factor esta en el numerador claro que habra un peque&ntilde;o cambio de signo por las porpiedades de la funci&oacute;n logaritmo</p><pre class="codeinput">figure
+hold <span class="string">on</span>
+w_n=10;
+
+<span class="comment">% Iteraci&oacute;n sobre diferentes valores</span>
+<span class="keyword">for</span> zeta = 0:0.3:1.2
+	bode(tf([ 1/(w_n^2) 2*zeta/w_n  1],1))
+	pause(0.5)
+	drawnow
+<span class="keyword">end</span>
+grid <span class="string">on</span>
+legend(<span class="string">'\zeta = 0'</span>,<span class="string">'\zeta = 0.3'</span>,<span class="string">'\zeta = 0.6'</span>,<span class="string">'\zeta = 0.9'</span>,<span class="string">'\zeta = 1.2'</span>,<span class="string">'Location'</span>,<span class="string">'SW'</span>)
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="P07SyS20201_11.png" alt=""> <h2 id="13">Analisis de un sistema de segundo orden no amortiguado</h2><p>Un sistema masa-resorte, es un ejemplo de sistema de segundo orden no amortiguado (no disipa energia). Este tipo de sistema puede ser modelado por la siguiente ecuaci&oacute;n diferencial</p><p><img src="P07SyS20201_eq13491007400478064634.png" alt="$$m\ddot{x}(t)+kx(t)=f(t)$$"></p><p>Donde <img src="P07SyS20201_eq12428413953531653171.png" alt="$x$"> representa la salida del sistema (la posici&oacute;n de la masa), y <img src="P07SyS20201_eq18096895394918367257.png" alt="$f$"> la entrada del sistema (la fuerza que se le aplica a la masa). La funci&oacute;n de transferencia asociada es la sigueinte:</p><p><img src="P07SyS20201_eq07100966857370312531.png" alt="$$\frac{X(s)}{F(s)}=\frac{1}{ms^2+k}$$"></p><h2 id="14">Representaci&oacute;n de un sistema LTI en MATLAB</h2><pre class="codeinput">m = 1;
+k = 5;
+num = 1;
+den = [m 0 k];
+massSpring_sys = tf(num, den)
+</pre><pre class="codeoutput">
+massSpring_sys =
+ 
+     1
+  -------
+  s^2 + 5
+ 
+Continuous-time transfer function.
+
+</pre><h2 id="15">Respuesta al escal&oacute;n (condiciones iniciales cero)</h2><pre class="codeinput">figure
+step(massSpring_sys,10)
+[y,t] = step(massSpring_sys,10);
+</pre><img vspace="5" hspace="5" src="P07SyS20201_12.png" alt=""> <h2 id="16">Polos y ceros del sistema</h2><pre class="codeinput">r = roots(den)
+p = pole(massSpring_sys)	<span class="comment">% Poles del sistema</span>
+disp(<span class="string">'Los polos del sistema son las ra&iacute;ces del denominador'</span>)
+</pre><pre class="codeoutput">
+r =
+
+   0.0000 + 2.2361i
+   0.0000 - 2.2361i
+
+
+p =
+
+   0.0000 + 2.2361i
+   0.0000 - 2.2361i
+
+Los polos del sistema son las ra&iacute;ces del denominador
+</pre><h2 id="17">Respuesta al impulso (condiciones iniciales cero)</h2><pre class="codeinput">figure
+impulse(massSpring_sys,10)
+</pre><img vspace="5" hspace="5" src="P07SyS20201_13.png" alt=""> <h2 id="18">Respuesta a entradas sinusoidales</h2><pre class="codeinput">t = 0:0.001:15;
+wn=2.23
+figure
+u = sin(wn/2*t);
+lsim(massSpring_sys, u, t)
+title(<span class="string">'Repuesta a bajas frecuencias'</span>)
+ylim([-3 3])
+
+figure
+u = sin(wn*t);
+lsim(massSpring_sys, u, t)
+title(<span class="string">'Repuesta a la frecuencia de resonancia'</span>)
+ylim([-3 3])
+
+figure
+u2 = sin(wn*2*t);
+lsim(massSpring_sys, u2, t)
+title(<span class="string">'Respuesta a altas frecuencias'</span>)
+ylim([-3 3])
+</pre><pre class="codeoutput">
+wn =
+
+    2.2300
+
+</pre><img vspace="5" hspace="5" src="P07SyS20201_14.png" alt=""> <img vspace="5" hspace="5" src="P07SyS20201_15.png" alt=""> <img vspace="5" hspace="5" src="P07SyS20201_16.png" alt=""> <h2 id="19">Modelo de suspensi&oacute;n de un carro</h2><p>El modelo de una de las cuatro suspensiones de un carro es un modelo de segundo orden. Este puede ser aproximado por un sistema masa-resorte-amortiguador. La entrada del sistema es el cambio en la altura del camino y la salida es el desplazamiento del cuerpo del carro</p><p><img vspace="5" hspace="5" src="quartercar_schematic_fbd.PNG" alt=""> </p><p>Del diagrama de cuerpo libre, se puede obtener la siguiente ecuaci&oacute;n diferencial de segundo orden para describir la din&aacute;mica de este sistema.</p><p><img src="P07SyS20201_eq10377621918617684788.png" alt="$$m\ddot{y}(t) = k\,(u(t)-y(t)) + b\,(\dot{u}(t) - \dot{y}(t))$$"></p><p>Al tomar la transformada de Lapalce con condiciones iniciales igual a cero, se obtine la siguiente funci&oacute;n de transferencia:</p><p><img src="P07SyS20201_eq07757296110177606499.png" alt="$$\frac{Y(s)}{U(s)} = \frac{b\,s+k}{m\,s^2+b\,s+k}$$"></p><h2 id="20">Parametros del modelo</h2><pre class="codeinput">m = 500;	<span class="comment">%kg</span>
+b = 1000;	<span class="comment">%Ns/m</span>
+k = 25000;	<span class="comment">%N/m</span>
+</pre><h2 id="21">Funci&oacute;n de transferencia: Entrada- Salida</h2><pre class="codeinput">car_sys = tf([b k],[m b k])
+</pre><pre class="codeoutput">
+car_sys =
+ 
+       1000 s + 25000
+  ------------------------
+  500 s^2 + 1000 s + 25000
+ 
+Continuous-time transfer function.
+
+</pre><h2 id="22">Ceros y polos del sistema</h2><pre class="codeinput">r = roots([m b k])	<span class="comment">% Raices de la ecuaci&oacute;n carateristica</span>
+p = pole(car_sys)	<span class="comment">% Polos del sistema</span>
+pzmap(car_sys)		<span class="comment">% Visualizaci&oacute;n de los polos y ceros del sistema</span>
+grid <span class="string">on</span>
+
+disp(sprintf([<span class="string">'Los polos del sistema son equivalentes a las ra&iacute;ces '</span> <span class="keyword">...</span>
+			  <span class="string">'del denominador de la funci&oacute;n de transferencia\n'</span>]))
+
+disp(sprintf([<span class="string">'Los ceros del sistema son equivalentes a las ra&iacute;ces '</span> <span class="keyword">...</span>
+			  <span class="string">'del numerador de la funci&oacute;n de transferencia\n'</span>]))
+</pre><pre class="codeoutput">
+r =
+
+  -1.0000 + 7.0000i
+  -1.0000 - 7.0000i
+
+
+p =
+
+  -1.0000 + 7.0000i
+  -1.0000 - 7.0000i
+
+Los polos del sistema son equivalentes a las ra&iacute;ces del denominador de la funci&oacute;n de transferencia
+
+Los ceros del sistema son equivalentes a las ra&iacute;ces del numerador de la funci&oacute;n de transferencia
+
+</pre><img vspace="5" hspace="5" src="P07SyS20201_17.png" alt=""> <h2 id="23">Respuesta del sistema al escal&oacute;n (conidiciones iniciales cero)</h2><pre class="codeinput">figure
+step(car_sys)
+legend(<span class="string">'Respuesta al escal&oacute;n'</span>)
+</pre><img vspace="5" hspace="5" src="P07SyS20201_18.png" alt=""> <h2 id="24">Respuesta al impulso (condiciones iniciales cero)</h2><pre class="codeinput">figure
+impulse(car_sys)
+</pre><img vspace="5" hspace="5" src="P07SyS20201_19.png" alt=""> <h2 id="25">Respuesta a una entrada sinusoidal</h2><p>Se obtiene la respuesta del sistema a diferentes frecuencias</p><pre class="codeinput">t = 0:0.001:10;
+wd=7;
+<span class="comment">% Respuesta a bajas frecuencias</span>
+figure
+u1 = sin(wd/2*t);
+lsim(car_sys, u1, t)
+title(<span class="string">'Respuesta a bajas frecuencias'</span>)
+legend(<span class="string">'Respuesta del sistema'</span>,<span class="string">'Location'</span>,<span class="string">'SE'</span>)
+ylim([-4 4])
+
+<span class="comment">% Respuesta a la frecuencia de resonancia</span>
+figure
+u2 = sin(wd*t);
+lsim(car_sys, u2, t)
+title(<span class="string">'Repuesta a la frecuencia de resonancia'</span>)
+legend(<span class="string">'Respuesta del sistema'</span>,<span class="string">'Location'</span>,<span class="string">'SE'</span>)
+ylim([-4 4])
+
+<span class="comment">% Respuesta a altas frecuencias</span>
+figure
+u3 = sin(2*wd*t);
+lsim(car_sys, u3, t)
+title(<span class="string">'Repuesta a altas frecuencias'</span>)
+legend(<span class="string">'Respuesta del sistema '</span>,<span class="string">'Location'</span>,<span class="string">'SE'</span>)
+ylim([-4 4])
+</pre><img vspace="5" hspace="5" src="P07SyS20201_20.png" alt=""> <img vspace="5" hspace="5" src="P07SyS20201_21.png" alt=""> <img vspace="5" hspace="5" src="P07SyS20201_22.png" alt=""> <h2 id="26">Respuesta en frecuencia del sistema</h2><pre class="codeinput"><span class="comment">% Gr&aacute;ficas de Bode</span>
+figure
+bode(car_sys)
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="P07SyS20201_23.png" alt=""> <h2 id="27">Efectos de variar el amortiguamiento en la respuesta en frecuencia</h2><pre class="codeinput">close <span class="string">all</span>
+figure
+hold <span class="string">on</span>
+
+<span class="comment">% Inicializamos las variables</span>
+m = 1;
+k = 5;
+
+<span class="comment">% Iteraci&oacute;n sobre diferentes valores de amortiguamiento</span>
+<span class="keyword">for</span> b = [0.1 0.5 1 2 4]
+	bode(tf(1,[m b k]),{0.1,10})
+	pause(0.5)
+	drawnow
+<span class="keyword">end</span>
+grid <span class="string">on</span>
+legend(<span class="string">'b = 0.1'</span>,<span class="string">'b = 0.5'</span>,<span class="string">'b = 1'</span>,<span class="string">'b = 2'</span>,<span class="string">'b = 4'</span>,<span class="string">'Location'</span>,<span class="string">'SW'</span>)
+title(<span class="string">'Efecto de variar el amortiguamiento en la respuesta en frecuencia'</span>)
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="P07SyS20201_24.png" alt=""> <h2 id="28">Efecto de variar la masa en la respuesta en frecuencia</h2><pre class="codeinput">figure
+hold <span class="string">on</span>
+
+b = 0.6;
+k = 5;
+
+<span class="comment">% Iteraci&oacute;n sobre diferentes valores de la masa</span>
+<span class="keyword">for</span> m = 2:6
+	bode(tf(1,[m b k]))
+	pause(0.5)
+	drawnow
+<span class="keyword">end</span>
+grid <span class="string">on</span>
+legend(<span class="string">'m = 2'</span>,<span class="string">'m = 3'</span>,<span class="string">'m = 4'</span>,<span class="string">'m = 5'</span>,<span class="string">'m = 5'</span>,<span class="string">'Location'</span>,<span class="string">'SW'</span>)
+title(<span class="string">'Efecto de variar la masa en la respuesta en frecuencia'</span>)
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="P07SyS20201_25.png" alt=""> <img vspace="5" hspace="5" src="P07SyS20201_26.png" alt=""> <h2 id="29">Entregables:</h2><p>Se revisa una publicaci&oacute;n (html) de la pr&aacute;ctica. En este caso tendra que iniciar indicando el nombre de la pr&aacute;ctica y sus datos personales, equipos de dos a cuatro personas (Portada). El &iacute;ndice del contenido lo genera Publish (&iacute;ndice). Los objetivos son los sigueintes:</p><div><ul><li>Conocer los conceptos de respuesta en frecuencia</li><li>Conocer los conceptos de filtros</li><li>Realizar graficas de Bode (manual y con MATLAB)</li><li>Realizar simulaciones num&eacute;ricas de sistemas con MATLAB</li></ul></div><p>Como introducci&oacute;n, realice un resumen de la secci&oacute;n 4.10 de Lathi, si lo considera necesario, investigue m&aacute;s sobre el tema.</p><p>Para el desarrollo se tienen que resolver cada uno de los siguientes problemas comenzando una nueva secci&oacute;n (para la publicaci&oacute;n) en cada uno de ellos.</p><div><ul><li><b>Problema 1.</b> El siguiente sistema es un ciruito electrico RLC en serie, donde la estrada es el voltaje suministrado al circuito y la salida es el voltaje en la resistencia,</li></ul></div><p><img vspace="5" hspace="5" src="RLC_schematic.PNG" alt=""> </p><p>realiza lo siguiente</p><p><b>1a.</b> Demuestra que la ecuaci&oacute;n que modela el sistema es</p><p><img src="P07SyS20201_eq17665202625424679462.png" alt="$$\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t) = \frac{R}{L}\dot{V_i}(t)$$"></p><p>Ayuda: Voltaje suministrado es igual a voltaje consumido, escribir las variables en terminos de la salida mediante las relaciones de voltaje corriente en cada elemento y utilizar el hecho de que es un circuito en serie</p><p><b>1b.</b> Encuentre la funci&oacute;n de transferencia.</p><p>En adelante suponga que <img src="P07SyS20201_eq15053406074287739616.png" alt="$L=1 H$">, <img src="P07SyS20201_eq17197569115849678565.png" alt="$C=510\,\mu F$"> y <img src="P07SyS20201_eq11390681866710100007.png" alt="$R=50\, \Omega$"></p><p><b>1c.</b> Reporta el c&oacute;digo y la gr&aacute;fica de la respuesta al impulso, para diferentes tiempos de simulaci&oacute;n de tal manera que se muestre el comportamiento del sistema</p><p><b>1d.</b> Reporta el codigo y la gr&aacute;fica de la respuesta al escal&oacute;n, para diferentes tiempos de simulaci&oacute;n de tal manera que se muestre el comportamiento del sistema</p><p>Define <img src="P07SyS20201_eq03865254568685440926.png" alt="$\omega_0=1/\sqrt(L*C)$"></p><p><b>1e.</b> Presenta las simulaciones con una entrada seno de de amplitud 1 con frecuencias, <img src="P07SyS20201_eq12472746766535792522.png" alt="$\frac{1}{2}\omega_0$">, <img src="P07SyS20201_eq08013314814671814516.png" alt="$\omega_0$">, y <img src="P07SyS20201_eq10185657534303922379.png" alt="$2\omega_0$">, para diferentes tiempos de simulaci&oacute;n de tal manera que se muestre el comportamiento del sistema</p><p><b>1f.</b> Reporta las gr&aacute;ficas de Bode para los valores de <img src="P07SyS20201_eq03442895190380135198.png" alt="$R$"> y <img src="P07SyS20201_eq03986222445007418011.png" alt="$C$"> propuestos y varia <img src="P07SyS20201_eq11904963258706611165.png" alt="$L$"> de 1 a 1e-6 (en potencias de 10), &iquest;Qu&eacute; sucede con la respuesta en frecuencia?</p><p><b>1g.</b> Reporta las gr&aacute;ficas de Bode para los valores de <img src="P07SyS20201_eq11904963258706611165.png" alt="$L$"> y <img src="P07SyS20201_eq03986222445007418011.png" alt="$C$"> propuestos y varia <img src="P07SyS20201_eq03442895190380135198.png" alt="$R$"> para <img src="P07SyS20201_eq06610265431356057978.png" alt="$2,10,20 K\Omega$">, &iquest;Qu&eacute; sucede con la respuesta en frecuencia?</p><div><ul><li><b>Problema 2.</b> Consideremos el siguiente sistema</li></ul></div><p><img src="P07SyS20201_eq12657513226747314603.png" alt="$$G(s)=\omega_c/(s+\omega_c)$$"></p><p><b>2a.</b> Muestra que <img src="P07SyS20201_eq13210163425651478975.png" alt="$|H(0j)|=1$"></p><p><b>2b.</b> Muestra que cuando que la magnitud de la respuesta en frecuencia es <img src="P07SyS20201_eq07094794556010101674.png" alt="$-3db$"> cuando <img src="P07SyS20201_eq04828565000110083945.png" alt="$\omega=\omega_c$"></p><p><b>2c.</b> Para modificar el comportamiento del sistema, se realiza una retroalimentaci&oacute;n negativa con <img src="P07SyS20201_eq13725936565931534356.png" alt="$k=9$">. &iquest;Para qu&eacute; valor de <img src="P07SyS20201_eq08589834809570054062.png" alt="$\omega$"> se tiene una ganancia de <img src="P07SyS20201_eq07094794556010101674.png" alt="$-3db$">?, &iquest;Qu&eacute; concluye?</p><p><b>2d.</b> Para modificar el comportamiento del sistema, se realiza una retroalimentaci&oacute;n negativa con <img src="P07SyS20201_eq17416341464737638526.png" alt="$k=0.9$">. &iquest;Para qu&eacute; valor de <img src="P07SyS20201_eq08589834809570054062.png" alt="$\omega$"> se tiene una ganancia de <img src="P07SyS20201_eq07094794556010101674.png" alt="$-3db$">?, &iquest;Qu&eacute; concluye?</p><p><b>2e.</b> Reporte las graficas de bode (c&oacute;digo) de los tres sistemas anteriores.</p><p><img vspace="5" hspace="5" src="Bloques1.png" alt=""> </p><div><ul><li><b>Problema 3</b> Para el siguiente sistema</li></ul></div><p><img src="P07SyS20201_eq14350229380769834299.png" alt="$$H(s)=\frac{(s+10)(s+20)}{s^2(s+100)}$$"></p><p><b>3a.</b> Bosqueja las gr&aacute;ficas de Bode a mano paso a paso, puedes revisar el ejemplo 4.25 y 4.26 de Lathi</p><p><b>3b.</b> Utiliza la instrucci&oacute;n <i>bode</i> para realizar las gr&aacute;ficas de bode</p><div><ul><li><b>Problema 4</b> Para el sistema</li></ul></div><p><img src="P07SyS20201_eq06949234320274469163.png" alt="$$H(s)=\frac{10(s+2)}{s^2+8s+15}$$"></p><p>Simule la respuesta al escal&oacute;n (CI=0), para diferentes tiempos de simulaci&oacute;n de tal manera que se muestre el comportamiento del sistema y comparela con la soluci&oacute;n anal&iacute;tica</p><p><img src="P07SyS20201_eq00127783516737992108.png" alt="$$y(t)=1.33u(t)+1.67e^{-3t}u(t)-3e^{-5t}u(t)$$"></p><div><ul><li><b>Problema 5</b> Se tiene el siguiente sistema</li></ul></div><p><img src="P07SyS20201_eq01839538569333147174.png" alt="$$\ddot{x}+5x=f$$"></p><p><b>5a.</b> &iquest;El sistema es BIBO estable?</p><p><b>5b.</b> Encuentre la respuesta  (anal&iacute;tica) para condiciones iniciales cero del sistema si <img src="P07SyS20201_eq05325103296798636949.png" alt="$f(t)=sen(\sqrt{5}t)u(t)$">, recuerde aplicar el resultado de convoluci&oacute;n si es necesario.</p><p><b>5c.</b> De acuerdo a 5a, &iquest;tiene sentido hablar de la respuesta en estado estacionario?</p><p><b>5d.</b> Presente las graficas de Bode del sistema utilizando la instrucci&oacute;n <i>bode</i></p><p><b>5e.</b> &iquest;Cu&aacute;les son sus concluisiones al respecto?</p><p><b>5f.</b> Encuentre la respuesta  (anal&iacute;tica) para condiciones iniciales cero del sistema si <img src="P07SyS20201_eq06375756332397265826.png" alt="$f(t)=sen(\sqrt{5}/2t)u(t)$">, compare con la simulaci&oacute;n en MATLAB</p><p><b>5g.</b> Encuentre la respuesta  (anal&iacute;tica) para condiciones iniciales cero del sistema si <img src="P07SyS20201_eq09989851041438858070.png" alt="$f(t)=sen(2\sqrt{5}t)u(t)$">, compare con la simulaci&oacute;n en MATLAB</p><div><ul><li><b>Problema 6</b> Investigue la instrucci&oacute;n <i>linearSystemAnalyzer</i> (disposible a partir de 2015a) y con ayuda de esta, reporte las gr&aacute;ficas de</li></ul></div><p><b>6a.</b> Respuesta al Impulso</p><p><b>6b.</b> Respuesta al escal&oacute;n</p><p><b>6c.</b> Respuesta a <img src="P07SyS20201_eq02036735383387106679.png" alt="$x(t)=cos(2t)u(t)$"></p><p><b>6d.</b> Graficas de Bode</p><p>Para condiciones iniciales cero y 10 segundos de simulaci&oacute;n, para el sistema.</p><p><img src="P07SyS20201_eq04474670953842134464.png" alt="$$\ddot{y}+3\dot{y}+2y=x$$"></p><div><ul><li><b>Problema 7</b> Reproduzca los resultados de la MATLAB session 4 del libro de Lathi.</li></ul></div><p>No es necesario incluir conclusiones en esta pr&aacute;ctica, si lo considera necesario puede incluir ap&eacute;ndices, no olvide incluir sus referencias.</p><p>El c&oacute;digo de esta publicaci&oacute;n lo puedes encontrar en el siguiente <a href="https://www.dropbox.com/s/ogmkwqf46bybemj/P07SyS20201.m?dl=0">enlace</a></p><p class="footer">Copyright 1984-2009 The MathWorks, Inc.<br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Práctica 7:  Respuesta en frecuencia, Simulación en MATLAB
+%
+%% Respuesta en frecuencia
+%
+% Los filtros (sistemas LTI) son importantes en el área de procesamiento de señales.
+% Las caracteristicas del filtrado de un sistema diferencial LTI (ecuación 
+% diferencial con coeficientes constantes y condiciones iniciales cero) 
+% están determinadas por lo siguiente:
+%
+% Si la entrada a un sistema BIBO-estable es
+% 
+% $$x(t)= A\cos(\omega t + \theta)u(t)$$
+% 
+%
+% La salida en estado estacionario (coincide con la solución particular o forzada), para 
+% un sistema asintoticamente estable, será
+%
+% $$y_{ss}(t)=A|H(j\omega)|\cos(\omega t+ \theta + \angle H(j\omega))u(t)$$
+%
+% Podemos decir lo siguiente: Si una señal coseno (o seno) es la entrada de 
+% un sistema LTI BIBO-estable y asintoticamente estable, la respuesta 
+% en estado estacionario es un escalamiento vertical y una traslación horizontal 
+% de la señal de entrada.
+%
+% Si el escalamiento vertical dado es muy pequeño 
+% $|H(j\omega)|<< 1$ la respuesta en estado estacionario tiene un efecto 
+% despreciable en la salida del sistema, entonces
+% diremos que el sistema filtra a esta señal ("no la deja pasar para llegar
+% a la salida del sistema", por lo que los sistemas LTI son filtros) pero esto
+% no siempre es el caso, podría suceder que el escalamiento vertical no sea
+% tan pequeño, entonces la respuesta en estado estacionario no sería
+% despreciable
+%
+% El escalamiento vertical depende de dos cosas, de la estructura del sistema
+% (cuantas derivadas hay en la entrada y la salida y los coeficientes de estas)
+% y de los valores de $\omega$.  Así para un sistema fijo $H$ el
+% escalamiento vertical y la traslación horizontal (o desfasamiento)
+% depende solo de los  valores de $\omega$, esto es, 
+% de la frecuencia de la entrada (ya sea una función seno o coseno).
+% Entonces sería conveniente tener registrados los escalamientos y 
+% traslaciones de la señal de salida en estado estacionario de alguna manera.  
+%
+% A la expresión $H(j\omega)$ se le conoce como *la respuesta en frecuencia
+% del sistema* (es decir, la respuesta en frecuencia es la función de 
+% transferencia en el formato de transformada de Fourier) y la manera 
+% de registrar la información que contiene es mediante las
+% gráficas $|H(j\omega)|$ contra $\omega$ (gráfica de magnitud) y 
+% $\angle(H(j\omega))$  contra $\omega$ (gráfica de fase)
+% (con $\omega$ de 0 a $\infty$) 
+% y precisamente estas gráficas nos ayudan a interpretar el sistema como
+% filtro, estás gráficas son las que se estudian cuando se habla de la
+% respuesta en frecuencia mas que la expresión análitica $H(j\omega)$ en si. 
+%% Ejemplo:
+% Encuentra la respuesta en frecuencia de
+%%
+% 
+% $$\ddot{y}+3\dot{y}+2y=\dot{x}+5x$$
+% 
+% ¿Cuál es la respuesta en estado estacionario cuando la entrada es $x(t)=20sen(3t+2)$?
+%
+% Se suele utilizar a la letra $s$ para escribir a la función de
+% transferencia, aunque en este estudio nos conviene ver a la función de
+% transferecia en su notación de transformada de Fourier, así sustituimos a
+% $s=j\omega$
+% 
+% $$H(s)=\frac{P(s)}{Q(s)}=\frac{s+5}{s^2+3s+2}$$
+% 
+% $$H(j\omega)=\frac{j\omega+5}{(j\omega)^2+3(j\omega)+2}=\frac{5+\omega j}{2-\omega^2+3\omega j}$$
+%
+% Aquí $\omega=3$, entonces
+%
+% $$H(3j)=\frac{j3+5}{(j3)^2+3(j3)+2}=\frac{5+3j}{-7+9j}$$
+% 
+% $$|H(3j)|=\frac{5.831}{11.402}=0.51141$$
+%
+% $$\angle H(3j)=0.54042-2.2318=-1.6914$$
+% 
+% Entonces la respuesta en estado estacionario es
+%
+% $$y_{ss}(t)=20(0.51141)sen(3t+2-1.6914)u(t)=10.228sen(3t+0.3086)u(t)$$
+%
+% Ahora podemos resolver este sistema para condiciones iniciales cero y la
+% entrada establecida, observemos que la solución es la respuesta total y en
+% principio la solución  no permite mostrar la respuesta en estado 
+% estacionario encontrada, pero mediante simplificación se puede ver 
+% que coicide con la solución del ejemplo anterior. 
+% Este sistema es asintoticamente estable y por lo tanto BIBO estable, 
+% entonces la respuesta transitoria tiende a ser despreciable despúes de
+% un largo tiempo, entonces si gráficamos la respuesta en estado estacionario 
+% encontrada en el ejemplo anterior tenemos que  
+%
+syms t
+rg=laplace2016am([2 3 1],[5 1],[0 0],20*sin(3*t+2)*heaviside(t),10);
+tt=0:0.01:10;
+plot(rg,tt,10.228*sin(3*tt+0.3086),'k','DisplayName','Estado estacionario')
+
+%%
+% La función |laplace2016am| es una modificación de un programa que ya
+% hemos utilizado donde nos regresa una ubicación para gráficar en donde
+% corresponde a la respuesta en estado estacionario, no hay mayor
+% importancia en esto solo es para un despliegue más amigable, puede consultar el código en el 
+% siguiente <https://www.dropbox.com/s/4g2ye89p8hkhjpt/laplace2016am.m?dl=0 enlace> . 
+%
+% A continuación calculamos la gráfica de Magnitud y de fase para el
+% sistema antes mencionado, mediante la defición directa y mediante la
+% herramienta de Matlab con la instrucción |bode|. Además observamos que
+% estas gráfica tienen la información de la magnitud y angulo para
+% diferentes valores de $\omega$ en particuñar cuando $\omega=3$,
+% hay que tener cuidado, la gráfica de fase se reporta en 
+% grados.
+
+w = [0:0.1:100];
+absH =@(w) (25+w.^2).^0.5./((2-w.^2).^2+9*w.^2).^.5;
+angH = @(w) atan2d(w,5)-atan2d(3*w,(2-w.^2));
+figure
+subplot(1,2,1)
+
+plot(w,absH(w))
+hold on
+p2=plot(3,absH(3),'ro');
+legend(p2,'Escalamiento para w=3')
+grid on
+title('|H(j\omega)|')
+xlabel('\omega')
+
+subplot(1,2,2)
+plot(w,angH(w))
+hold on
+p3=plot(3,angH(3),'ro');
+legend(p3,'traslación (en grados) para w=3')
+grid on
+title('\angle H(j\omega)')
+xlabel('\omega')
+
+sistema = tf([1 5],[1 3 2])
+
+[m,a,wb] = bode(sistema);
+mm = squeeze(m);
+aa = squeeze(a);
+
+
+figure
+subplot(1,2,1)
+plot(wb,mm)
+grid on
+title('|H(j\omega)|')
+xlabel('\omega')
+
+subplot(1,2,2)
+plot(wb,aa)
+grid on
+title('\angle H(j\omega)')
+xlabel('\omega')
+
+%% Gráficas de Bode
+%
+% Las gráficas de Bode son escalas de las graficas de magnitud y fase,
+% estas escalas se remontan a la decada de 1930-1940,
+% nos permiten elaborar las gráficas de una manera "amigable"
+% y tienen una mejor visualización que las escalas naturales,
+% aunque en un principio la interpretación de la magnitud y el desplazamiento (fase)
+% pueden parecer un poco extrañas, son las mismas que hemos 
+% comentado anteriormente.
+% 
+% *La gráfica de magnitud de bode* es gráficar $20 log_{10}(|H(j\omega)|)$,
+% contra $log_{10}(\omega)$. 
+%
+% *La gráfica de fase de bode* es gráficar $\angle(|H(j\omega)|)$,
+% contra $log_{10}(\omega)$. 
+%
+% *Tenemos la siguiente definición*, si a un número positivo $a$ le realizamos la 
+% operacion de la forma $20log_{10}(a)$ diremos que el resultado es el 
+% valor en decibeles del número a, es decir, la gráfica de Bode 
+% de magnitud se mide en *decibeles*.
+% 
+% *Ejercicio* Convertir 
+%
+% * $|H(j\omega_0)|=1$ a decibeles
+% * $|H(j\omega_0)|=0.01$ a decibeles
+% * $|H(j\omega_0)|=1/\sqrt{2}$ a decibeles
+% * $-3db$ a magnitud
+% * $-20db$ a magnitud
+% * $10db$ a mag
+%
+% *Las transformaciones sugeridas* en estas gráficas están justificadas por el
+% comportamiento de la función logaritmo
+%
+% *Una Decada* es una razon $\omega_2/\omega_1=10$, equivale a una unidad
+% en el eje $u=log(\omega)$
+%
+% $$u_2-u_1=log(\omega_2)-log(\omega_!)=\log(\omega_2/\omega_1)=log(10)=1$$
+% 
+% *Una Octava* es una razon $\omega_2/\omega_1=2$, equivale a $0.301$
+% en el eje $u=log(\omega)$
+%
+% $$u_2-u_1=log(\omega_2)-log(\omega_!)=\log(\omega_2/\omega_1)=log(2)=0.301$$
+%
+% Pensemos en la siguiente función de transferencia
+%   
+% $$H(s)=\frac { K(s+{ a }_{ 1 })(s+{ a }_{ 2 }) }{ s(s+b_{ 1 })({ s }^{ 2 }+{ b }_{ 2 }s+{ b }_{ 3 }) } $$
+%   
+%   
+% Factorizamos las constantes necesarias de tal manera que el termino independiente de cada componente de la factorización sea uno. Esto servirá para el análisis posterior
+%   
+%   
+% $$H(s)=\frac { K{ a }_{ 1 }{ a }_{ 2 } }{ { b }_{ 1 }{ b }_{ 3 } } \frac { \left( \frac { s }{ { a }_{ 1 } } +1 \right) \left( \frac { s }{ { a }_{ 2 } } +1 \right)  }{ s\left( \frac { s }{ { b }_{ 1 } } +1 \right)\left( \frac { s^{ 2 } }{ { b }_{ 3 } } +\frac { { b }_{ 2 } }{ { b }_{ 3 } } s+1 \right)  } 
+% $$
+%   
+% Sustituimos $s=j\omega$ para encontrar la función del escalamiento y traslación  
+%   
+%   
+% $$
+% H(j\omega )=\frac { K{ a }_{ 1 }{ a }_{ 2 } }{ { b }_{ 1 }{ b }_{ 3 } } \frac { \left( 1+\frac { j\omega  }{ { a }_{ 1 } }  \right) \left( 1+\frac { j\omega  }{ { a }_{ 2 } }  \right)  }{ j\omega \left( 1+\frac { j\omega  }{ { b }_{ 1 } }  \right) \left[ 1+j\frac { { b }_{ 2 }\omega  }{ { b }_{ 3 } } +\frac { { (j\omega ) }^{ 2 } }{ { b }_{ 3 } }  \right]  } 
+% $$
+%   
+% Así la magnitud del escalamiento queda como
+%   
+% $$
+% \left| H(j\omega ) \right| =\frac { K{ a }_{ 1 }{ a }_{ 2 } }{ { b }_{ 1 }{ b }_{ 3 } } \frac { \left| 1+\frac { j\omega  }{ { a }_{ 1 } }  \right| \left| 1+\frac { j\omega  }{ { a }_{ 2 } }  \right|  }{ \left| j\omega  \right| \left| 1+\frac { j\omega  }{ { b }_{ 1 } }  \right| \left| 1+j\frac { { b }_{ 2 }\omega  }{ { b }_{ 3 } } +\frac { { (j\omega ) }^{ 2 } }{ { b }_{ 3 } }  \right|  } 
+% $$
+%   
+% Y la traslación 
+%   
+% $$
+% \angle H(j\omega )=\angle\left(\frac { K{ a }_{ 1 }{ a }_{ 2 } }{ { b }_{ 1 }{ b }_{ 3 } }\right)+\angle \left( 1+\frac { j\omega  }{ { a }_{ 1 } }  \right) +\angle \left( 1+\frac { j\omega  }{ { a }_{ 2 } }  \right) -\angle j\omega -\angle \left( 1+\frac { j\omega  }{ { b }_{ 1 } }  \right) -\angle \left[ 1+j\frac { { b }_{ 2 }\omega  }{ { b }_{ 3 } } +\frac { { (j\omega ) }^{ 2 } }{ { b }_{ 3 } }  \right] 
+% $$
+%   
+%   
+% El valor en decibeles de la magnitud queda como
+% 
+% $$ 20log\left| H(j\omega ) \right| =20log\left|\frac { K{ a }_{ 1 }{ a }_{ 2 } }{ { b }_{ 1 }{ b }_{ 3 } } \right|+20log\left| 1+\frac { j\omega  }{ { a }_{ 1 } }  \right| +20log\left| 1+\frac { j\omega  }{ { a }_{ 2 } }  \right| -20log\left| j\omega  \right| -20log\left| 1+\frac { j\omega  }{ { b }_{ 1 } }  \right|  \\
+% -20log\left| 1+j\frac { { b }_{ 2 }\omega  }{ { b }_{ 3 } } +\frac { {
+% (j\omega ) }^{ 2 } }{ { b }_{ 3 } } \right| $$
+%      
+%% Gráficas de bode de constantes
+% Si la función de transferencia es una constante, la grafica de la magnitud 
+% son lineas horizontales y la fase es de $0$ o $180$ grados dependiendo del signo
+% Pensemos en la siguiente función  de transferencia:
+% 
+% $$H(j\omega)=a\;\; a\in R$$
+%
+% $$20log|H(j\omega)|=20log|a|$$
+%
+% Para a positiva $ang(H(j\omega))=0$ y para a negativa $ang(H(j\omega))=180$
+figure
+bode(5,1)
+grid on
+figure
+bode(-5,1)
+grid on
+%% Gráficas de bode de potencias
+% Pensemos en la siguiente función  de transferencia:
+% 
+% $$H(j\omega)=\frac{1}{jw}$$
+%
+% La magnitud en decibeles queda como:
+%
+% $$20log|H(j\omega)|=-20log|\omega|=-20log(\omega)=-20u$$
+%
+% La traslación queda como:
+%
+% $$\angle H(j\omega )=-\angle \left( j\omega \right)=- 90$$
+%
+close figure 1 2 3 4 5
+figure
+%hold on
+% Iteración sobre diferentes valores
+d=[1];
+for i = 1:4
+    d=[d 0];
+	bode(tf(1,d))
+	pause(0.5)
+	drawnow
+    hold on
+end
+grid on
+legend('1/(j\omega)^1','1/(j\omega)^2','1/(j\omega)^3','1/(j\omega)^4','Location','SW')
+hold off
+%%
+% Se puede deducir de manera semejante si el factor esta en el numerador
+% claro que habra un pequeño cambio de signo por las porpiedades de la
+% función logaritmo
+figure
+hold on
+% Iteración sobre diferentes valores
+n=[1];
+for i = 1:4
+    n=[n 0];
+	bode(tf(n,1))
+	pause(0.5)
+	drawnow
+end
+grid on
+legend('(j\omega)^1','(j\omega)^2','(j\omega)^3','(j\omega)^4','Location','SW')
+hold off
+
+%% Gráficas de bode de factores lineales
+% Pensemos en la siguiente función de transferencia 
+%
+% $$H(j\omega)=\frac{1}{\left(1+\frac{j\omega}{a}\right)}$$
+%
+% La magnitud en decibeles queda como:
+%
+% $$20log|H(j\omega)|=-20log\left| 1+\frac { j\omega  }{ a } \right|$$
+% 
+% Cuando $\omega<<a$ entonces
+%
+% $$20log|H(j\omega)|=-20log\left| 1+\frac { j\omega  }{ a } \right|\approx -20log(1)=0$$
+%
+% Cuando $\omega>>a$ entonces
+%
+% $$20log|H(j\omega)|=-20log\left| 1+\frac { j\omega  }{ a }  \right| \approx -20log\left( \frac { \omega  }{ a }  \right) =-20log\omega +20loga=-20u+20log(a)$$
+%
+% ¿Qué pasa cuando $\omega=a$?
+%
+% La traslación queda como:
+%
+% $$\angle H(j\omega )=-\angle \left( 1+\frac { j\omega  }{ a }  \right) =-{ tan }^{ -1 }\left( \frac { \omega  }{ a }  \right)$$
+%
+% Cuando $\omega<<a$ entonces
+%
+% $$\angle H(j\omega )=-{ tan }^{ -1 }\left( \frac { \omega  }{ a }  \right) \approx 0 $$
+%
+% Cuando $\omega>>a$ entonces
+%
+% $$\angle H(j\omega )=-{ tan }^{ -1 }\left( \frac { \omega  }{ a }  \right) \approx -90$$
+%
+% ¿Qué pasa cuando $\omega=a$?
+%
+figure
+hold on
+% Iteración sobre diferentes valores
+for i = 1:5
+	bode(tf(1,[ 1/(10^i) 1]))
+	pause(0.5)
+	drawnow
+end
+grid on
+legend('a = 10','a = 100','a = 1000','a = 10000','a = 100000','Location','SW')
+hold off
+%%
+% Se puede deducir de manera semejante si el factor esta en el numerador
+% claro que habra un pequeño cambio de signo por las porpiedades de la
+% función logaritmo
+%
+figure
+hold on
+% Iteración sobre diferentes valores
+for i = 1:5
+    bode(tf([ 1/(10^i) 1],1))
+	pause(0.5)
+	drawnow
+end
+grid on
+legend('a = 10','a = 100','a = 1000','a = 10000','a = 100000','Location','SW')
+hold off
+%% Gráficas de bode de factores cuadraticos
+% Pensemos en la siguiente función de transferencia 
+%
+% $$H(j\omega)=\frac{1}{\left(1+2j\zeta \frac { \omega  }{ { \omega  }_{ n } } +{ \left( \frac { j\omega  }{ { \omega  }_{ n } }  \right)  }^{ 2 }\right)}$$
+%
+% La magnitud en decibeles queda como:
+%
+% $$20log|H(j\omega)|=-20log\left| 1+2j\zeta \frac { \omega  }{ { \omega  }_{ n } } +{ \left( \frac { j\omega  }{ { \omega  }_{ n } }  \right)  }^{ 2 } \right|$$
+% 
+% Cuando $\omega<<\omega_n$ entonces
+%
+% $$20log|H(j\omega)|=-20log\left| 1 \right|\approx -20log(1)=0$$
+%
+% Cuando $\omega>>\omega_n$ entonces
+%
+% $$20log|H(j\omega)|=-20log\left| \frac {- \omega^2  }{ \omega_n^2 }  \right| \approx -40log\left( \frac { \omega  }{ \omega_n }  \right) =-40log\omega +40log\omega_n=-40u+40log(\omega_n)$$
+%
+% ¿Qué pasa cuando $\omega=\omega_n$?
+%
+% La traslación queda como:
+%
+% $$\angle H(j\omega )=-\angle \left(1+2j\zeta \frac { \omega  }{ { \omega  }_{ n } } +{ \left( \frac { j\omega  }{ { \omega  }_{ n } }  \right)  }^{ 2 }  \right) =-{ tan }^{ -1 }\left( \frac { 2\zeta \left( \frac { \omega  }{ { \omega  }_{ n } }  \right)  }{ 1-{ \left( \frac { \omega  }{ { \omega  }_{ n } }  \right)  }^{ 2 } }\right)$$
+%
+% Cuando $\omega<<\omega_n$ entonces
+%
+% $$\angle H(j\omega )=-{ tan }^{ -1 }\left( \frac { 0  }{ 1 }  \right) \approx 0 $$
+%
+% Cuando $\omega>>\omega_n$ entonces
+%
+% $$\angle H(j\omega ) \approx -180$$
+%
+% ¿Qué pasa cuando $\omega=\omega_n$?
+%
+
+figure
+hold on
+w_n=10;
+
+% Iteración sobre diferentes valores
+for zeta = 0.1:0.2:0.9
+	bode(tf(1,[ 1/(w_n^2) 2*zeta/w_n  1]))
+	pause(0.5)
+	drawnow
+end
+grid on
+legend('\zeta = 0.1','\zeta = 0.3','\zeta = 0.5','\zeta = 0.7','\zeta = 0.9','Location','SW')
+hold off
+%%
+% Se puede deducir de manera semejante si el factor esta en el numerador
+% claro que habra un pequeño cambio de signo por las porpiedades de la
+% función logaritmo
+%
+figure
+hold on
+w_n=10;
+
+% Iteración sobre diferentes valores
+for zeta = 0:0.3:1.2
+	bode(tf([ 1/(w_n^2) 2*zeta/w_n  1],1))
+	pause(0.5)
+	drawnow
+end
+grid on
+legend('\zeta = 0','\zeta = 0.3','\zeta = 0.6','\zeta = 0.9','\zeta = 1.2','Location','SW')
+hold off
+
+
+
+%% Analisis de un sistema de segundo orden no amortiguado
+%
+% Un sistema masa-resorte, es un ejemplo de sistema de segundo orden no amortiguado 
+% (no disipa energia). Este tipo de sistema puede ser modelado
+% por la siguiente ecuación diferencial
+% 
+% $$m\ddot{x}(t)+kx(t)=f(t)$$
+% 
+% Donde $x$ representa la salida del sistema (la posición de la masa), y 
+% $f$ la entrada del sistema (la fuerza que se le aplica a la masa). La
+% función de transferencia asociada es la sigueinte:
+% 
+% $$\frac{X(s)}{F(s)}=\frac{1}{ms^2+k}$$
+%
+%% Representación de un sistema LTI en MATLAB
+
+m = 1;
+k = 5;
+num = 1;
+den = [m 0 k];
+massSpring_sys = tf(num, den)
+
+%% Respuesta al escalón (condiciones iniciales cero)
+
+figure
+step(massSpring_sys,10)
+[y,t] = step(massSpring_sys,10);
+
+%% Polos y ceros del sistema 
+
+r = roots(den)
+p = pole(massSpring_sys)	% Poles del sistema
+disp('Los polos del sistema son las raíces del denominador')
+
+
+%% Respuesta al impulso (condiciones iniciales cero)
+figure
+impulse(massSpring_sys,10)
+
+%% Respuesta a entradas sinusoidales
+t = 0:0.001:15;
+wn=2.23
+figure
+u = sin(wn/2*t);
+lsim(massSpring_sys, u, t)
+title('Repuesta a bajas frecuencias')
+ylim([-3 3])
+
+figure
+u = sin(wn*t);
+lsim(massSpring_sys, u, t)
+title('Repuesta a la frecuencia de resonancia')
+ylim([-3 3])
+
+figure
+u2 = sin(wn*2*t);
+lsim(massSpring_sys, u2, t)
+title('Respuesta a altas frecuencias')
+ylim([-3 3])
+
+
+%% Modelo de suspensión de un carro
+%
+% El modelo de una de las cuatro suspensiones de un carro es un 
+% modelo de segundo orden. Este puede ser aproximado por un sistema 
+% masa-resorte-amortiguador. La entrada del sistema es el cambio en la
+% altura del camino y la salida es el desplazamiento del cuerpo del carro
+%
+% <<quartercar_schematic_fbd.PNG>>
+% 
+% Del diagrama de cuerpo libre, se puede obtener la siguiente ecuación
+% diferencial de segundo orden para describir la dinámica de este sistema.
+%
+% $$m\ddot{y}(t) = k\,(u(t)-y(t)) + b\,(\dot{u}(t) - \dot{y}(t))$$
+%
+%
+% Al tomar la transformada de Lapalce con condiciones iniciales 
+% igual a cero, se obtine la siguiente función de transferencia:
+% 
+%
+% $$\frac{Y(s)}{U(s)} = \frac{b\,s+k}{m\,s^2+b\,s+k}$$
+%
+%
+% Copyright 1984-2009 The MathWorks, Inc. 
+
+%% Parametros del modelo
+m = 500;	%kg
+b = 1000;	%Ns/m
+k = 25000;	%N/m
+
+%% Función de transferencia: Entrada- Salida 
+car_sys = tf([b k],[m b k])
+
+%% Ceros y polos del sistema
+r = roots([m b k])	% Raices de la ecuación carateristica
+p = pole(car_sys)	% Polos del sistema
+pzmap(car_sys)		% Visualización de los polos y ceros del sistema
+grid on
+
+disp(sprintf(['Los polos del sistema son equivalentes a las raíces ' ...
+			  'del denominador de la función de transferencia\n']))
+
+disp(sprintf(['Los ceros del sistema son equivalentes a las raíces ' ...
+			  'del numerador de la función de transferencia\n']))
+
+%% Respuesta del sistema al escalón (conidiciones iniciales cero)
+figure
+step(car_sys)
+legend('Respuesta al escalón')
+
+%% Respuesta al impulso (condiciones iniciales cero)
+figure
+impulse(car_sys)
+
+%% Respuesta a una entrada sinusoidal
+% Se obtiene la respuesta del sistema a diferentes frecuencias
+t = 0:0.001:10;
+wd=7;
+% Respuesta a bajas frecuencias
+figure
+u1 = sin(wd/2*t);
+lsim(car_sys, u1, t)
+title('Respuesta a bajas frecuencias')
+legend('Respuesta del sistema','Location','SE')
+ylim([-4 4])
+
+% Respuesta a la frecuencia de resonancia
+figure
+u2 = sin(wd*t);
+lsim(car_sys, u2, t)
+title('Repuesta a la frecuencia de resonancia')
+legend('Respuesta del sistema','Location','SE')
+ylim([-4 4])
+
+% Respuesta a altas frecuencias
+figure
+u3 = sin(2*wd*t);
+lsim(car_sys, u3, t)
+title('Repuesta a altas frecuencias')
+legend('Respuesta del sistema ','Location','SE')
+ylim([-4 4])
+
+%% Respuesta en frecuencia del sistema
+
+% Gráficas de Bode
+figure
+bode(car_sys)
+grid on
+
+%% Efectos de variar el amortiguamiento en la respuesta en frecuencia
+close all
+figure
+hold on
+
+% Inicializamos las variables
+m = 1;
+k = 5;
+
+% Iteración sobre diferentes valores de amortiguamiento
+for b = [0.1 0.5 1 2 4]
+	bode(tf(1,[m b k]),{0.1,10})
+	pause(0.5)
+	drawnow
+end
+grid on
+legend('b = 0.1','b = 0.5','b = 1','b = 2','b = 4','Location','SW')
+title('Efecto de variar el amortiguamiento en la respuesta en frecuencia')
+hold off
+
+
+%% Efecto de variar la masa en la respuesta en frecuencia
+
+figure
+hold on
+
+b = 0.6;
+k = 5;
+
+% Iteración sobre diferentes valores de la masa
+for m = 2:6
+	bode(tf(1,[m b k]))
+	pause(0.5)
+	drawnow
+end
+grid on
+legend('m = 2','m = 3','m = 4','m = 5','m = 5','Location','SW')
+title('Efecto de variar la masa en la respuesta en frecuencia')
+hold off
+
+%% Entregables:
+%
+% Se revisa una publicación (html) de la práctica. En este caso tendra que iniciar 
+% indicando el nombre de la práctica y sus datos personales, equipos de dos a cuatro personas 
+% (Portada). El índice del contenido lo genera Publish (índice). Los objetivos son los sigueintes:
+% 
+% * Conocer los conceptos de respuesta en frecuencia
+% * Conocer los conceptos de filtros
+% * Realizar graficas de Bode (manual y con MATLAB) 
+% * Realizar simulaciones numéricas de sistemas con MATLAB
+%
+% Como introducción, realice un resumen de la sección 4.10 de Lathi, si
+% lo considera necesario, investigue más sobre el tema.
+%
+% Para el desarrollo se tienen que resolver cada uno de los siguientes problemas comenzando 
+% una nueva sección (para la publicación) en cada uno de ellos.
+%
+% * *Problema 1.* El siguiente sistema es un ciruito electrico RLC en serie, donde la
+% estrada es el voltaje suministrado al circuito y la salida es el voltaje
+% en la resistencia,
+% 
+% <<RLC_schematic.PNG>>
+% 
+% realiza lo siguiente 
+% 
+% *1a.* Demuestra que la ecuación que modela el sistema es 
+%
+% $$\ddot{V}_o(t)+\frac{R}{L}\dot{V}_o(t)+\frac{1}{LC}V_o(t) = \frac{R}{L}\dot{V_i}(t)$$
+%  
+% Ayuda: Voltaje suministrado es igual a voltaje consumido, escribir las
+% variables en terminos de la salida mediante las relaciones de voltaje
+% corriente en cada elemento y utilizar el hecho de que es un circuito en
+% serie
+% 
+% *1b.* Encuentre la función de transferencia. 
+%
+% En adelante suponga que $L=1 H$, $C=510\,\mu F$ y $R=50\, \Omega$
+%
+% *1c.* Reporta el código y la gráfica de la respuesta al impulso, para
+% diferentes tiempos de simulación de tal manera que se muestre el
+% comportamiento del sistema
+%
+% *1d.* Reporta el codigo y la gráfica de la respuesta al escalón, para
+% diferentes tiempos de simulación de tal manera que se muestre el
+% comportamiento del sistema
+%
+% Define $\omega_0=1/\sqrt(L*C)$
+%
+% *1e.* Presenta las simulaciones con una entrada seno de 
+% de amplitud 1 con frecuencias, $\frac{1}{2}\omega_0$, $\omega_0$, y
+% $2\omega_0$, para
+% diferentes tiempos de simulación de tal manera que se muestre el
+% comportamiento del sistema
+%
+% *1f.* Reporta las gráficas de Bode para los valores de $R$ y $C$ propuestos y
+% varia $L$ de 1 a 1e-6 (en potencias de 10), ¿Qué sucede con la respuesta
+% en frecuencia?
+%
+% *1g.* Reporta las gráficas de Bode para los valores de $L$ y $C$ propuestos y
+% varia $R$ para $2,10,20 K\Omega$, ¿Qué sucede con la respuesta
+% en frecuencia?
+%
+% * *Problema 2.* Consideremos el siguiente sistema
+%
+% $$G(s)=\omega_c/(s+\omega_c)$$
+%
+% *2a.* Muestra que $|H(0j)|=1$
+%
+% *2b.* Muestra que cuando que la magnitud de la respuesta en frecuencia es
+% $-3db$ cuando $\omega=\omega_c$
+%
+% *2c.* Para modificar el comportamiento del sistema, se realiza una
+% retroalimentación negativa con $k=9$. ¿Para qué valor de $\omega$ se
+% tiene una ganancia de $-3db$?, ¿Qué concluye?
+%
+% *2d.* Para modificar el comportamiento del sistema, se realiza una
+% retroalimentación negativa con $k=0.9$. ¿Para qué valor de $\omega$ se
+% tiene una ganancia de $-3db$?, ¿Qué concluye?
+%
+% *2e.* Reporte las graficas de bode (código) de los tres sistemas anteriores.
+%
+% <<Bloques1.png>>
+%
+% * *Problema 3* Para el siguiente sistema
+%
+% $$H(s)=\frac{(s+10)(s+20)}{s^2(s+100)}$$
+%
+% *3a.* Bosqueja las gráficas de Bode a mano paso a paso, puedes revisar el
+% ejemplo 4.25 y 4.26 de Lathi
+%
+% *3b.* Utiliza la instrucción _bode_ para realizar las gráficas de bode
+%
+% * *Problema 4* Para el sistema 
+%
+% $$H(s)=\frac{10(s+2)}{s^2+8s+15}$$
+%
+% Simule la respuesta al escalón (CI=0), para
+% diferentes tiempos de simulación de tal manera que se muestre el
+% comportamiento del sistema y comparela con la solución
+% analítica
+%
+% $$y(t)=1.33u(t)+1.67e^{-3t}u(t)-3e^{-5t}u(t)$$
+%
+% * *Problema 5* Se tiene el siguiente sistema 
+%
+% $$\ddot{x}+5x=f$$
+%
+% *5a.* ¿El sistema es BIBO estable? 
+%
+% *5b.* Encuentre la respuesta  (analítica) para condiciones iniciales cero del sistema si
+% $f(t)=sen(\sqrt{5}t)u(t)$, recuerde aplicar el resultado de convolución si es
+% necesario.
+%
+% *5c.* De acuerdo a 5a, ¿tiene sentido hablar de la respuesta en estado
+% estacionario?
+%
+% *5d.* Presente las graficas de Bode del sistema utilizando la instrucción
+% _bode_
+%
+% *5e.* ¿Cuáles son sus concluisiones al respecto?
+% 
+% *5f.* Encuentre la respuesta  (analítica) para condiciones iniciales cero del sistema si
+% $f(t)=sen(\sqrt{5}/2t)u(t)$, compare con la simulación en MATLAB
+%
+% *5g.* Encuentre la respuesta  (analítica) para condiciones iniciales cero del sistema si
+% $f(t)=sen(2\sqrt{5}t)u(t)$, compare con la simulación en MATLAB
+%
+% * *Problema 6* Investigue la instrucción _linearSystemAnalyzer_ (disposible a partir de 2015a)
+% y con ayuda de esta, reporte las gráficas de 
+%
+% *6a.* Respuesta al Impulso
+%
+% *6b.* Respuesta al escalón
+%
+% *6c.* Respuesta a $x(t)=cos(2t)u(t)$
+%
+% *6d.* Graficas de Bode
+%
+% Para condiciones iniciales cero y 10 segundos de simulación, para el sistema.
+%
+% $$\ddot{y}+3\dot{y}+2y=x$$
+%
+% * *Problema 7* Reproduzca los resultados de la MATLAB session 4 del libro
+% de Lathi.
+%
+% No es necesario incluir conclusiones en esta práctica, si lo considera necesario 
+% puede incluir apéndices, no olvide incluir sus referencias.
+%
+% El código de esta publicación lo puedes encontrar en el siguiente <https://www.dropbox.com/s/ogmkwqf46bybemj/P07SyS20201.m?dl=0  enlace> 
+
+
+##### SOURCE END #####
+--></body></html>
