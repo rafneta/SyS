@@ -11,6 +11,6 @@ ramartinezr@ipn.mx
 
 [facebook](https://www.facebook.com/raf.mtz.52)
 
-[twitter](\href{https://twitter.com/rauael)
+[twitter](https://twitter.com/rauael)
 
 [página](http://rafneta.github.io/)
