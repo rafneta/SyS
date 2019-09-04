@@ -7,10 +7,10 @@ Curso de señales y sistemas UPIITA-IPN
 - Dr. Rafael Martínez Martínez
 ramartinezr@ipn.mx
 
-[Linkedin](https://www.linkedin.com/in/rafael-mart%C3%ADnez-mart%C3%ADnez-92187776/)
+- [Linkedin](https://www.linkedin.com/in/rafael-mart%C3%ADnez-mart%C3%ADnez-92187776/)
 
-[facebook](https://www.facebook.com/raf.mtz.52)
+- [facebook](https://www.facebook.com/raf.mtz.52)
 
-[twitter](https://twitter.com/rauael)
+- [twitter](https://twitter.com/rauael)
 
-[página](http://rafneta.github.io/)
+- [página](http://rafneta.github.io/)
